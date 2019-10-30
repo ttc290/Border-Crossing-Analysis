@@ -72,24 +72,24 @@ int main(int argc, char **argv) {
 	map<int, map<int, map<int, map<string, map<int, map<string, map<string, int> > > > > > > report; // organize monthly record by Year, Month, Day, Date, Value, Measure, Border
 
 	// sort by Border
-	for (auto b_it = record.begin(); b_it != record.end(); b_it++) {
+	for (map<string, map<string, map<int, map<int, map<int, map<string, int> > > > > >::iterator b_it = record.begin(); b_it != record.end(); b_it++) {
 		
 		// sort by Measure
-		for (auto m_it = b_it->second.begin(); m_it != b_it->second.end(); m_it++) {
+		for (map<string, map<int, map<int, map<int, map<string, int> > > > >::iterator m_it = b_it->second.begin(); m_it != b_it->second.end(); m_it++) {
 			double count = 0.0; // the running number of previous months
 			int trailing_tot = 0; // the running total of values
 
 			// sort by Year
-			for (auto y_it = m_it->second.begin(); y_it != m_it->second.end(); y_it++) {
+			for (map<int, map<int, map<int, map<string, int> > > >::iterator y_it = m_it->second.begin(); y_it != m_it->second.end(); y_it++) {
 
 				// sort by Month
-				for (auto mo_it = y_it->second.begin(); mo_it != y_it->second.end(); mo_it++) {
+				for (map<int, map<int, map<string, int> > >::iterator mo_it = y_it->second.begin(); mo_it != y_it->second.end(); mo_it++) {
 
 					// sort by Day
-					for (auto da_it = mo_it->second.begin(); da_it != mo_it->second.end(); da_it++) {
+					for (map<int, map<string, int> >::iterator da_it = mo_it->second.begin(); da_it != mo_it->second.end(); da_it++) {
 
 						// sort by Date
-						for (auto d_it = da_it->second.begin(); d_it != da_it->second.end(); d_it++) {
+						for (map<string, int>::iterator d_it = da_it->second.begin(); d_it != da_it->second.end(); d_it++) {
 
 							if (count == 0) {
 								report[y_it->first][mo_it->first][da_it->first][d_it->first][d_it->second][m_it->first][b_it->first] = 0; // No record of previous month, running monthly average = 0
@@ -112,25 +112,25 @@ int main(int argc, char **argv) {
 
 	// access monthly record in descending order
 	// By Year
-	for (auto y_it = report.rbegin(); y_it != report.rend(); y_it++) {
+	for (map<int, map<int, map<int, map<string, map<int, map<string, map<string, int> > > > > > >::reverse_iterator y_it = report.rbegin(); y_it != report.rend(); y_it++) {
 
 		// By Month
-		for (auto mo_it = y_it->second.rbegin(); mo_it != y_it->second.rend(); mo_it++) {
+		for (map<int, map<int, map<string, map<int, map<string, map<string, int> > > > > >::reverse_iterator mo_it = y_it->second.rbegin(); mo_it != y_it->second.rend(); mo_it++) {
 
 			// By Day
-			for (auto da_it = mo_it->second.rbegin(); da_it != mo_it->second.rend(); da_it++) {
+			for (map<int, map<string, map<int, map<string, map<string, int> > > > >::reverse_iterator da_it = mo_it->second.rbegin(); da_it != mo_it->second.rend(); da_it++) {
 
 				// By Date
-				for (auto d_it = da_it->second.rbegin(); d_it != da_it->second.rend(); d_it++) {
+				for (map<string, map<int, map<string, map<string, int> > > >::reverse_iterator d_it = da_it->second.rbegin(); d_it != da_it->second.rend(); d_it++) {
 
 					// By Value
-					for (auto v_it = d_it->second.rbegin(); v_it != d_it->second.rend(); v_it++) {
+					for (map<int, map<string, map<string, int> > >::reverse_iterator v_it = d_it->second.rbegin(); v_it != d_it->second.rend(); v_it++) {
 
 						// By Measure
-						for (auto m_it = v_it->second.rbegin(); m_it != v_it->second.rend(); m_it++) {
+						for (map<string, map<string, int> >::reverse_iterator m_it = v_it->second.rbegin(); m_it != v_it->second.rend(); m_it++) {
 
 							// By Border
-							for (auto b_it = m_it->second.rbegin(); b_it != m_it->second.rend(); b_it++) {
+							for (map<string, int>::reverse_iterator b_it = m_it->second.rbegin(); b_it != m_it->second.rend(); b_it++) {
 
 								myfile << b_it->first << "," << d_it->first << "," << m_it->first << "," << v_it->first << "," << b_it->second << endl; // write to file line by line
 							}
