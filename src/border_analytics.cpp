@@ -13,7 +13,7 @@ int main(int argc, char **argv) {
 	string ifile = argv[1];
 	string ofile = argv[2];
 
-	ifstream f_data(ifile); // open input file to get data
+	ifstream f_data(ifile.c_str()); // open input file to get data
 
 	const char * delim = ","; // input file is comma-separated
 	string fline;
@@ -105,7 +105,7 @@ int main(int argc, char **argv) {
 		} 
 	}
 
-	ofstream myfile(ofile); // open output file to write data
+	ofstream myfile(ofile.c_str()); // open output file to write data
 
 	myfile << "Border,Date,Measure,Value,Average\n";
 
