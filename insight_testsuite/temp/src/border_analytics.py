@@ -32,7 +32,7 @@ for (border_key, border_value) in sorted(data.items()):
 			if (count == 0):
 				report[date_key][date_value][measure_key][border_key] = 0
 			else:
-				report[date_key][date_value][measure_key][border_key] = round(trailing_tot / count) # calculate the trailing average
+				report[date_key][date_value][measure_key][border_key] = int(round(trailing_tot / count)) # calculate the trailing average
 			count = count + 1
 			trailing_tot = trailing_tot + date_value
 
